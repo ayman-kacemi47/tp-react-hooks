@@ -6,43 +6,20 @@ Ce TP a pour objectif de mettre en pratique l'utilisation des Hooks React (useSt
 
 1. Cloner le dépôt :
 ```bash
-git clone https://github.com/pr-daaif/tp-react-hooks.git
+git clone https://github.com/ayman-kacemi47/tp-react-hooks.git
 cd tp-react-hooks
 ```
 
-2. Créer votre propre dépôt sur Github et changer le remote :
-```bash
-# Supprimer le remote origine
-git remote remove origin
 
-# Ajouter votre nouveau remote
-git remote add origin https://github.com/[votre-username]/tp-react-hooks.git
-
-# Premier push
-git push -u origin main
-```
-
-3. Installer les dépendances :
+2. Installer les dépendances :
 ```bash
 npm install
 ```
 
-4. Lancer l'application :
+3. Lancer l'application :
 ```bash
 npm start
 ```
-
-## Instructions pour le TP
-
-Pour chaque exercice :
-1. Lisez attentivement l'énoncé
-2. Implémentez la solution
-3. Testez votre implémentation (pensez à faire des copies d'écran)
-4. Mettez à jour la section correspondante dans ce README avec :
-   - Une brève explication de votre solution
-   - Des captures d'écran montrant le fonctionnement
-   - Les difficultés rencontrées et comment vous les avez résolues
-5. Commitez vos changements avec un message descriptif
 
 ### Exercice 1 : État et Effets 
 #### Objectif : Implémenter une recherche en temps réel
@@ -51,11 +28,25 @@ Pour chaque exercice :
 - [ ] 1.2 Implémenter le debounce sur la recherche
 - [ ] 1.3 Documenter votre solution ici
 
-_Votre réponse pour l'exercice 1 :_
-```
-Expliquez votre solution ici
-[Ajoutez vos captures d'écran]
-```
+
+## réponse pour l'exercice 1 :
+
+J'ai utilisé ```const [searchTerm, setSearchTerm] = useState('');``` dans App.js au lieu du ProductSearch donc pour donner l'accés a le component ProductSearch.js pour changer et afficher la valeur searchTerm,  et pour ProductList searchTerm donc je peux l'utiliser dans le filtre, tout ça grace à le hook createContext.
+
+voilà quelque image d'application où j'ai traité les 3 cas 
+   - la liste des produits est vide
+   ![liste des produits est vide](captures/no_products.png)
+
+   - la liste des produits est pleine mais le searchTerm ne correspon à aucun produit
+   ![pas de produit correspond à votre recherche](captures/search_not_found.png)
+   
+   - la liste filtré selon le terme entré
+   ![produits correspond à votre recherche](captures/search_result.png)
+   - pas des difficultés renconctrées 😊
+
+
+
+
 
 ### Exercice 2 : Context et Internationalisation
 #### Objectif : Gérer les préférences de langue
