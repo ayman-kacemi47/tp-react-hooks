@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { SearchContext, ThemeContext } from '../App';
 import useProductSearch from '../hooks/useProductSearch';
+import useDebounce from '../hooks/useDebounce';
 
 const ProductList = () => {
   const { isDarkTheme } = useContext(ThemeContext);
   const { searchTerm } = useContext(SearchContext);
+  const debounceSeach = useDebounce(searchTerm);
   // TODO: Exercice 2.1 - Utiliser le LanguageContext pour les traductions
   
   const { 
@@ -24,22 +26,25 @@ const ProductList = () => {
   },[products]);
 
   useEffect(()=>{
-    if(searchTerm.trim() !== ''){
+    if(debounceSeach.trim() !== ''){
       //kacemi_comment:on utilise products au lieu de prev pour avoir la possibiliter d'afficher la précedentes liste et ne perdre pas les données  
       setFiltredProducts(()=>[...products.filter((p)=>
-        p.title.toLowerCase().includes(searchTerm.toLowerCase())
-        || p.description.toLowerCase().includes(searchTerm.toLowerCase())
-        || p.price.toString().includes(searchTerm.toLowerCase())
+        p.title.toLowerCase().includes(debounceSeach.toLowerCase())
+        || p.description.toLowerCase().includes(debounceSeach.toLowerCase())
+        || p.price.toString().includes(debounceSeach.toLowerCase())
 
         //kacemi_comment: donc pour honey jar  s'affiche meme que avec honey jarrrrrrr
-        ||searchTerm.toLowerCase().includes(p.title.toLowerCase())
-        || searchTerm.toLowerCase().includes(p.description.toLowerCase())
+        ||debounceSeach.toLowerCase().includes(p.title.toLowerCase())
+        || debounceSeach.toLowerCase().includes(p.description.toLowerCase())
       
 
 
       )]);
+    }else{
+      //kacemi_comment: ce else est crée pour reinitilizer la liste car le debounce cause la liste à n'est pas etre reinitialiser  
+      setFiltredProducts(products);
     }
-  },[searchTerm, products]);
+  },[debounceSeach, products]);
 
 
   if (loading) return (
@@ -58,6 +63,7 @@ const ProductList = () => {
   
   return (
     <div>
+   
       {/* TODO: Exercice 4.1 - Ajouter le bouton de rechargement */}
       <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         {

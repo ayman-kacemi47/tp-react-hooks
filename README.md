@@ -30,7 +30,7 @@ npm start
 
 
 ## réponse pour l'exercice 1 :
-
+#### 1.1
 J'ai utilisé ```const [searchTerm, setSearchTerm] = useState('');``` dans App.js au lieu du ProductSearch donc pour donner l'accés a le component ProductSearch.js pour changer et afficher la valeur searchTerm,  et pour ProductList searchTerm donc je peux l'utiliser dans le filtre, tout ça grace à le hook createContext.
 
 voilà quelque image d'application où j'ai traité les 3 cas 
@@ -39,10 +39,17 @@ voilà quelque image d'application où j'ai traité les 3 cas
 
    - la liste des produits est pleine mais le searchTerm ne correspon à aucun produit
    ![pas de produit correspond à votre recherche](captures/search_not_found.png)
-   
+
    - la liste filtré selon le terme entré
    ![produits correspond à votre recherche](captures/search_result.png)
    - pas des difficultés renconctrées 😊
+
+#### 1.2
+J'ai crée un hook ```useDebounce``` qui prend comme argument le terme à chercher ainsi que le delay.
+   ![gif pour test de recherche avec debounce ](captures/debounce_search.gif)
+
+   - difficultés trouvé avec le debounce c'est que quand je vide la bar de recherche la list affiche toujour le dernier resultat au lieu d'initialiser la liste car le delay de debounce affecte la condition qui verifie la valeur de searchTerme, donc j'ai utilisé une autre condition pour reinitialiser la liste si le searchTerme est vide.
+
 
 
 
