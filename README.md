@@ -42,7 +42,7 @@ voilà quelque image d'application où j'ai traité les 3 cas
 
    - la liste filtré selon le terme entré
    ![produits correspond à votre recherche](captures/search_result.png)
-   - pas des difficultés renconctrées 😊
+   - pas de difficultés renconctrées 😊
 
 #### 1.2
 J'ai crée un hook ```useDebounce``` qui prend comme argument le terme à chercher ainsi que le delay.
@@ -62,12 +62,29 @@ J'ai crée un hook ```useDebounce``` qui prend comme argument le terme à cherch
 - [ ] 2.2 Ajouter le sélecteur de langue
 - [ ] 2.3 Documenter votre solution ici
 
-_Votre réponse pour l'exercice 2 :_
+## Gestion de la Langue dans l'Application React
+
+### Contexte de la Langue
+
+J'ai créé un contexte de langue (`LanguageContext`) pour gérer la langue sélectionnée et les traductions des éléments de la page. Voici comment cela fonctionne :
+
+- Le `LanguageContext.Provider` fournit les valeurs `selectedLanguage`, `setSelectedLanguage` et `translations` à l'application.
+
+### Fichier translations.json
+
+Le fichier `translations.json` contient les traductions des éléments de la page en trois langues : arabe, français et l'anglais.
+
+et dans chaque component selon la valeur de  `selectedLanguage.value` j'affiche la bonne valeur à partir de `translations`, et pour l'arabe je change la direction d'écriture graçe a ce code:
 ```
-Expliquez votre solution ici
-[Ajoutez vos captures d'écran]
+   useEffect(()=>{
+    console.log("ahooooo ", selectedLanguage)
+    const  isRtl = selectedLanguage.value === "ar" ;
+    document.documentElement.dir = isRtl ? "rtl" : "ltr";
+  },[selectedLanguage]);
 ```
 
+### Resultat:
+   ![exemple transaltion en arabe](captures/translation.png)
 ### Exercice 3 : Hooks Personnalisés
 #### Objectif : Créer des hooks réutilisables
 

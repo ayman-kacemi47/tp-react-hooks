@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { SearchContext, ThemeContext } from '../App';
+import { LanguageContext, SearchContext, ThemeContext } from '../App';
 import useProductSearch from '../hooks/useProductSearch';
 import useDebounce from '../hooks/useDebounce';
 
@@ -8,7 +8,7 @@ const ProductList = () => {
   const { searchTerm } = useContext(SearchContext);
   const debounceSeach = useDebounce(searchTerm);
   // TODO: Exercice 2.1 - Utiliser le LanguageContext pour les traductions
-  
+  const { translations , selectedLanguage } = useContext(LanguageContext);
   const { 
     products, 
     loading, 
@@ -50,14 +50,14 @@ const ProductList = () => {
   if (loading) return (
     <div className="text-center my-4">
       <div className="spinner-border" role="status">
-        <span className="visually-hidden">Chargement...</span>
+        <span className="visually-hidden">{translations[selectedLanguage.value]["chargement"]}</span>
       </div>
     </div>
   );
   
   if (error) return (
     <div className="alert alert-danger" role="alert">
-      Erreur: {error}
+     {translations[selectedLanguage.value]["erreur"] + " " + error}
     </div>
   );
   
@@ -68,7 +68,7 @@ const ProductList = () => {
       <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         {
         products.length<1 ? <div className="alert alert-info w-100" role="info">
-        Pas de produits à afficher revenez plus tard
+        {translations[selectedLanguage.value]["rien_a_afficher"]}
       </div>
         :filtedProducts.length < 1 ? <div className="alert alert-info w-100" role="info">Aucun produit correspond à vote recherche: "{searchTerm}"
       </div>:
@@ -87,7 +87,7 @@ const ProductList = () => {
                 <h5 className="card-title">{product.title}</h5>
                 <p className="card-text">{product.description}</p>
                 <p className="card-text">
-                  <strong>Prix: </strong>
+                  <strong>{translations[selectedLanguage.value]["prix"]} </strong>
                   {product.price}€
                 </p>
               </div>

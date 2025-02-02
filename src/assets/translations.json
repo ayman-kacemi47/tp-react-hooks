@@ -1,0 +1,41 @@
+{
+    "fr":{
+        "catalogue_produits":"Catalogue de Produits",
+        "Modes":{
+            "clair":"Mode Clair",
+            "sombre":"Mode Sombre"
+        },
+        "chercher_produit":"Rechercher un produit...",
+        "chargement":"Chargement...",
+        "erreur":"Erreur:",
+        "rien_a_afficher":"Pas de produits à afficher revenez plus tard.",
+        "pas_produits_pour_searchValue":"Aucun produit correspond à vote recherche:",
+        "prix":"Prix: "
+    },
+    "en":{
+        "catalogue_produits":"Product Catalog",
+        "Modes":{
+            "clair":"Light Mode",
+            "sombre":"Dark Mode"
+        },
+        "chercher_produit":"Search for a product...",
+        "chargement":"Loading...",
+        "erreur":"Error:",
+        "rien_a_afficher":"No products to display, please check back later.",
+        "pas_produits_pour_searchValue":"No products match your search:",
+        "prix":"Price: "
+    },
+    "ar":{
+        "catalogue_produits":"كتالوج المنتجات",
+        "Modes":{
+            "clair":"وضع فاتح",
+            "sombre":"وضع غامق"
+        },
+        "chercher_produit":"البحث عن منتج...",
+        "chargement":"جاري التحميل...",
+        "erreur":"خطأ:",
+        "rien_a_afficher":"لا توجد منتجات للعرض، يرجى العودة لاحقًا.",
+        "pas_produits_pour_searchValue":"لا توجد منتجات تطابق البحث الخاص بك:",
+        "prix":"السعر:"
+    }
+}
