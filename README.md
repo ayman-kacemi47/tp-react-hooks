@@ -88,15 +88,11 @@ et dans chaque component selon la valeur de  `selectedLanguage.value` j'affiche 
 ### Exercice 3 : Hooks Personnalisés
 #### Objectif : Créer des hooks réutilisables
 
-- [ ] 3.1 Créer le hook useDebounce
-- [ ] 3.2 Créer le hook useLocalStorage
-- [ ] 3.3 Documenter votre solution ici
+- Grâce à des hooks abstraits que l'on peut utiliser plusieurs fois, comme le hook `useLocalStorage` qui contient des fonctions `getter` et `setter` pour lire et écrire dans le localStorage de l'application en utilisant une clé et une valeur.
 
-_Votre réponse pour l'exercice 3 :_
-```
-Expliquez votre solution ici
-[Ajoutez vos captures d'écran]
-```
+#### Resultat:
+   ![demonstration localStorage](captures/useLocalStorage.gif)
+
 
 ### Exercice 4 : Gestion Asynchrone et Pagination
 #### Objectif : Gérer le chargement et la pagination
