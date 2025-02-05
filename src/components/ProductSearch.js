@@ -19,7 +19,7 @@ const ProductSearch = () => {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         placeholder={translations[selectedLanguage.value]["chercher_produit"]}
-        className={`form-control ${isDarkTheme ? 'bg-dark text-light' : ''}`}
+        className={`form-control ${isDarkTheme ? 'text-light bg-dark dark-theme-placeholder ' : ''}`}
       />
     </div>
   );

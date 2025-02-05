@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { LanguageContext, SearchContext, ThemeContext } from '../App';
 import useProductSearch from '../hooks/useProductSearch';
 import useDebounce from '../hooks/useDebounce';
+import { Reloader } from './Reloader';
 
 const ProductList = () => {
   const { isDarkTheme } = useContext(ThemeContext);
@@ -14,12 +15,20 @@ const ProductList = () => {
     loading, 
     error,
     // TODO: Exercice 4.1 - Récupérer la fonction de rechargement
+    reload,
+    
     // TODO: Exercice 4.2 - Récupérer les fonctions et états de pagination
+    total,
+    limit,
+    skip,
+    setSkip
   } = useProductSearch();
   
 
   //filtred Products (Ex 1.1)
   const [filtedProducts, setFiltredProducts] = useState([]);
+
+  const [reloadCounter, setReloadCounter] = useState(0); // State for reload
 
   useEffect(()=>{
     setFiltredProducts(products);
@@ -46,6 +55,7 @@ const ProductList = () => {
     }
   },[debounceSeach, products]);
 
+  
 
   if (loading) return (
     <div className="text-center my-4">
@@ -62,9 +72,9 @@ const ProductList = () => {
   );
   
   return (
-    <div>
-   
+    <div className="position-relative">
       {/* TODO: Exercice 4.1 - Ajouter le bouton de rechargement */}
+   <Reloader  reload={reload}/> 
       <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         {
         products.length<1 ? <div className="alert alert-info w-100" role="info">
@@ -97,27 +107,27 @@ const ProductList = () => {
       </div>
       
       {/* TODO: Exercice 4.2 - Ajouter les contrôles de pagination */}
-      {/* Exemple de structure pour la pagination :
+      {/* Exemple de structure pour la pagination :*/}
       <nav className="mt-4">
         <ul className="pagination justify-content-center">
           <li className="page-item">
-            <button className="page-link" onClick={previousPage}>
+            <button className="page-link" onClick={(skip/limit)+1 > 1 ? ()=> setSkip((prev)=>prev-limit) : null} disabled={!((skip/limit)+1 > 1)}>
               Précédent
             </button>
           </li>
           <li className="page-item">
             <span className="page-link">
-              Page {currentPage} sur {totalPages}
+              Page {(skip/limit)+1} sur {Math.ceil(total/limit)}
             </span>
           </li>
           <li className="page-item">
-            <button className="page-link" onClick={nextPage}>
+            <button className="page-link" onClick={(skip/limit)+1 < Math.ceil(total/limit) ? ()=> setSkip((prev)=>prev+limit) : null} disabled={!((skip/limit)+1 < Math.ceil(total/limit))}>
               Suivant
             </button>
           </li>
         </ul>
       </nav>
-      */}
+      
     </div>
   );
 };
