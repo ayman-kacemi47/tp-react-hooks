@@ -111,17 +111,17 @@ const ProductList = () => {
       <nav className="mt-4">
         <ul className="pagination justify-content-center">
           <li className="page-item">
-            <button className="page-link" onClick={(skip/limit)+1 > 1 ? ()=> setSkip((prev)=>prev-limit) : null} disabled={!((skip/limit)+1 > 1)}>
+            <button className={`page-link ${!((skip/limit)+1 > 1) ? 'disabled-page-link' : '' }`} onClick={(skip/limit)+1 > 1 ? ()=> setSkip((prev)=>prev-limit) : null} disabled={!((skip/limit)+1 > 1)}>
               Précédent
             </button>
           </li>
           <li className="page-item">
-            <span className="page-link">
+            <span className={`page-link `}>
               Page {(skip/limit)+1} sur {Math.ceil(total/limit)}
             </span>
           </li>
           <li className="page-item">
-            <button className="page-link" onClick={(skip/limit)+1 < Math.ceil(total/limit) ? ()=> setSkip((prev)=>prev+limit) : null} disabled={!((skip/limit)+1 < Math.ceil(total/limit))}>
+            <button className={`page-link ${!((skip/limit)+1 < Math.ceil(total/limit)) ? 'disabled-page-link' : '' }`} onClick={(skip/limit)+1 < Math.ceil(total/limit) ? ()=> setSkip((prev)=>prev+limit) : null} disabled={!((skip/limit)+1 < Math.ceil(total/limit))}>
               Suivant
             </button>
           </li>

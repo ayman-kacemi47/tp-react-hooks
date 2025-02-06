@@ -10,3 +10,12 @@ body {
 .dark-theme-placeholder::placeholder {
     color: lightgray; /* Color for dark theme */
   }
+
+  .disabled-page-link{
+    background-color:rgba(128, 128, 128, 0.279);
+    opacity:0.8;
+  }
+
+  .disabled-page-link:hover{
+    cursor: not-allowed;
+  }

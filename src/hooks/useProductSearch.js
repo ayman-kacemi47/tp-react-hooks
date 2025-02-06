@@ -10,7 +10,7 @@ const useProductSearch = () => {
   const [reloadCounter, setReloadCounter] = useState(0); // State for reload
 
   // TODO: Exercice 4.2 - Ajouter l'état pour la pagination
-  const [limit,setLimit]=useState(10);
+  const [limit,setLimit]=useState(9);
   const [skip,setSkip]=useState(0);
   const [total,setTotal]=useState(0);
 
@@ -18,10 +18,11 @@ const useProductSearch = () => {
   useEffect(() => {
     console.log("fetch number ", reloadCounter)
     const fetchProducts = async () => {
+      setLoading(true);
       console.log("fetch entred ")
       try {
         // TODO: Exercice 4.2 - Modifier l'URL pour inclure les paramètres de pagination
-        const response = await fetch(`https://api.daaif.net/products?delay=1000&skip=${skip}&limit=${limit}`);
+        const response = await fetch(`https://api.daaif.net/products?skip=${skip}&limit=${limit}&delay=1000`);
         if (!response.ok) throw new Error('Erreur réseau');
         const data = await response.json();
         console.log("data ", data)
@@ -31,17 +32,23 @@ const useProductSearch = () => {
       } catch (err) {
         setError(err.message);
         setLoading(false);
+      }finally{
+      
+        setLoading(false);
       }
     };
-
     fetchProducts();
+
+
   }, [reloadCounter, skip, limit]); // TODO: Exercice 4.2 - Ajouter les dépendances pour la pagination
 
 
 
   // TODO: Exercice 4.1 - Ajouter la fonction de rechargement
   const reload = () => {
+    setLoading(true);
     setReloadCounter(prevCounter => prevCounter + 1);
+    setLoading(false);
     
   };
 

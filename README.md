@@ -75,9 +75,8 @@ J'ai créé un contexte de langue (`LanguageContext`) pour gérer la langue sél
 Le fichier `translations.json` contient les traductions des éléments de la page en trois langues : arabe, français et l'anglais.
 
 et dans chaque component selon la valeur de  `selectedLanguage.value` j'affiche la bonne valeur à partir de `translations`, et pour l'arabe je change la direction d'écriture graçe a ce code:
-```
+```js
    useEffect(()=>{
-    console.log("ahooooo ", selectedLanguage)
     const  isRtl = selectedLanguage.value === "ar" ;
     document.documentElement.dir = isRtl ? "rtl" : "ltr";
   },[selectedLanguage]);
@@ -101,15 +100,84 @@ et dans chaque component selon la valeur de  `selectedLanguage.value` j'affiche 
 - [ ] 4.2 Implémenter la pagination
 - [ ] 4.3 Documenter votre solution ici
 
-_Votre réponse pour l'exercice 4 :_
-```
-Expliquez votre solution ici
-[Ajoutez vos captures d'écran]
+# 📦 Gestion des Produits avec Pagination et Rechargement  
+
+Ce projet implémente une liste de produits avec un système de **pagination** et un bouton **flottant de rechargement**.  
+
+## 🎯 Fonctionnalités  
+✅ Chargement dynamique des produits via `useEffect`  
+✅ Rechargement des produits avec un **bouton flottant**  
+✅ Système de **pagination** avec gestion des boutons "Précédent" et "Suivant"  
+✅ Indicateur de chargement  
+
+---
+
+## 🚀 Rechargement  
+
+### 🖥️ Démonstration  
+
+![Démonstration rechargement](captures/reload.gif)  
+
+### 🔧 Fonctionnement  
+
+Un **bouton flottant** incrémente une variable `reloadCounter` avec `useState`.  
+L'effet `useEffect` qui gère le `fetch` des produits est automatiquement déclenché lorsque `reloadCounter`, `skip` ou `limit` changent :  
+
+```js
+const [reloadCounter, setReloadCounter] = useState(0); // State for reload
+
+useEffect(() => {
+  console.log("fetch number ", reloadCounter);
+  const fetchProducts = async () => {
+    ...
+  };
+  fetchProducts();
+}, [reloadCounter, skip, limit]);
 ```
 
-## Rendu
+## 📌 Pagination  
 
-- Ajoutez l'URL de votre dépôt Github dans  **Classroom** et envoyer la réponse dès le démarage de votre projet.
-- Les push doivent se faire au fûr et à mesure que vous avancez dans votre projet.
-- Le README.md doit être à jour avec vos réponses et captures d'écran. 
-- Chaques exercice doit faire l'objet d'au moins un commit avec un message mentionnant le numéro de l'exercice.
+### 🖥️ Démonstration  
+
+![Démonstration pagination](captures/pagination.gif)  
+
+### 🔧 Fonctionnement  
+
+La pagination utilise les paramètres `skip` et `limit` de l'API pour afficher uniquement une partie des produits.  
+Les boutons **"Précédent"** et **"Suivant"** permettent de naviguer entre les pages et sont automatiquement désactivés si l'utilisateur est sur la première ou la dernière page.  
+
+### 📜 Code de la pagination  
+
+```js
+<nav className="mt-4">
+  <ul className="pagination justify-content-center">
+    <!-- Bouton Précédent -->
+    <li className="page-item">
+      <button 
+        className={`page-link ${!((skip/limit)+1 > 1) ? 'disabled-page-link' : ''}`} 
+        onClick={(skip/limit)+1 > 1 ? () => setSkip(prev => prev - limit) : null} 
+        disabled={!((skip/limit)+1 > 1)}
+      >
+        Précédent
+      </button>
+    </li>
+
+    <!-- Affichage du numéro de page -->
+    <li className="page-item">
+      <span className="page-link">
+        Page {(skip / limit) + 1} sur {Math.ceil(total / limit)}
+      </span>
+    </li>
+
+    <!-- Bouton Suivant -->
+    <li className="page-item">
+      <button 
+        className={`page-link ${!((skip/limit)+1 < Math.ceil(total/limit)) ? 'disabled-page-link' : ''}`} 
+        onClick={(skip/limit)+1 < Math.ceil(total/limit) ? () => setSkip(prev => prev + limit) : null} 
+        disabled={!((skip/limit)+1 < Math.ceil(total/limit))}
+      >
+        Suivant
+      </button>
+    </li>
+  </ul>
+</nav>
